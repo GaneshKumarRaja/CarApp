@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ganesh.myapplication.di.builder.ViewModelFactory;
-import com.ganesh.myapplication.view.booking.CarBookingViewModel;
-import com.ganesh.myapplication.view.carlist.CarLocationViewModel;
+import com.ganesh.myapplication.presentation.booking.CarBookingViewModel;
+import com.ganesh.myapplication.presentation.carlist.CarLocationViewModel;
 
 import dagger.Binds;
 import dagger.Module;

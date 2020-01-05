@@ -15,7 +15,7 @@ public interface HttpClient {
     public Observable<List<CarsLocationDomainModel>> getCarsList();
 
     @GET("cars/{id}")
-    public Observable<CarDetailsDomainModel> carDetailsByID(@Path("id") String id);
+    public Observable<CarDetailsDomainModel> carDetailsByID(@Path("id") Integer id);
 
 
 }

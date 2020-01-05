@@ -8,8 +8,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public interface CarsLocationRepository {
-    public Observable<List<CarsLocationDomainModel>> getLocationList();
+public interface CarsLocationRepository  {
+     Observable<List<CarsLocationDomainModel>> getLocationList();
 
-    public Observable<CarDetailsDomainModel> getCarDetails(String carID);
+     Observable<CarDetailsDomainModel> getCarDetails(Integer carID);
 }

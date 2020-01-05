@@ -8,6 +8,9 @@ public class DomainToAppDataMapper extends Mapper<CarsLocationDomainModel, Marke
 
     @Override
     public MarkerModel mapFrom(CarsLocationDomainModel model) {
-        return new MarkerModel(Double.parseDouble(model.getLat()), Double.parseDouble(model.getLon()));
+        return new MarkerModel(Double.parseDouble(model.getLat()),
+                Double.parseDouble(model.getLon()),
+                Integer.parseInt(model.getCarId()),
+                model.getTitle() != null ? model.getTitle() : model.getLicencePlate());
     }
 }

@@ -26,6 +26,17 @@ public class CarBookingDomainModel {
 
     private Integer startTime;
 
+    private String message;
+
+
+    public String getMessage() {
+        return message;
+    }
+
+
+    public void seMmessage(String message) {
+        this.message = message;
+    }
 
     public Integer getReservationId() {
         return reservationId;

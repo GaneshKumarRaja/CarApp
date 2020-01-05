@@ -1,7 +1,9 @@
 package com.ganesh.domain.model;
 
 
-public class CarDetailsDomainModel {
+import com.ganesh.domain.common.DomainMapper;
+
+public class CarDetailsDomainModel implements DomainMapper {
 
 
     private Integer carId;

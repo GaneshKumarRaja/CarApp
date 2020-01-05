@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.carlist.CarsListMapFragment">
+        tools:context=".presentation.carlist.CarsListMapFragment">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map"

@@ -1,5 +1,6 @@
 package com.ganesh.data.repository;
 
+import com.ganesh.data.BuildConfig;
 import com.ganesh.data.datasource.CarBookingHttpClient;
 import com.ganesh.domain.model.CarBookingDomainModel;
 import com.ganesh.domain.repository.CarBookingRepository;
@@ -22,6 +23,6 @@ public class BookingRepositoryImpl implements CarBookingRepository {
 
     @Override
     public Observable<CarBookingDomainModel> doCarBooking(HashMap<String, Integer> params) {
-        return client.carBooking("Bearer df7c313b47b7ef87c64c0f5f5cebd6086bbb0fa",params);
+        return client.carBooking(BuildConfig.TOKEN, params);
     }
 }

@@ -1,5 +1,6 @@
 package com.ganesh.data.repository;
 
+
 import com.ganesh.data.datasource.HttpClient;
 import com.ganesh.domain.model.CarDetailsDomainModel;
 import com.ganesh.domain.model.CarsLocationDomainModel;
@@ -15,6 +16,7 @@ import io.reactivex.Observable;
 public class CarsLocationRepositoryImpl implements CarsLocationRepository {
     private HttpClient client;
 
+
     @Inject
     public CarsLocationRepositoryImpl(HttpClient client) {
         this.client = client;
@@ -26,7 +28,7 @@ public class CarsLocationRepositoryImpl implements CarsLocationRepository {
     }
 
     @Override
-    public Observable<CarDetailsDomainModel> getCarDetails(String carID) {
+    public Observable<CarDetailsDomainModel> getCarDetails(Integer carID) {
         return client.carDetailsByID(carID);
     }
 

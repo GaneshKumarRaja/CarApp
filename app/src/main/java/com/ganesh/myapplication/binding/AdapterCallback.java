@@ -1,4 +1,4 @@
-package com.ganesh.myapplication.view.booking;
+package com.ganesh.myapplication.binding;
 
 public interface AdapterCallback {
     void onBookingClikced();

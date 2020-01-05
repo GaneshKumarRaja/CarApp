@@ -6,12 +6,26 @@
 
     <fragment
         android:id="@+id/nav_car_list_map_fragment"
-        android:name="com.ganesh.myapplication.view.carlist.CarsListMapFragment" />
+        android:name="com.ganesh.myapplication.presentation.carlist.CarsListMapFragment">
+
+
+        <action
+            android:id="@+id/action_car_list"
+            app:destination="@+id/nav_booking_fragment">
+
+        </action>
+    </fragment>
 
 
     <fragment
         android:id="@+id/nav_booking_fragment"
-        android:name="com.ganesh.myapplication.view.booking.BookingFragment" />
+        android:name="com.ganesh.myapplication.presentation.booking.BookingFragment">
+        <argument
+            android:name="name"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 
 
 </navigation>

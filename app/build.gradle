@@ -14,8 +14,18 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField "String", "URL_CAR_INFO", '"https://s3.eu-central-1.amazonaws.com/wunderfleet-recruiting-dev/"'
+            buildConfigField "String", "URL_BOOKING", '"https://4i96gtjfia.execute-api.eu-central-1.amazonaws.com/default/"'
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "URL_CAR_INFO", '"https://s3.eu-central-1.amazonaws.com/wunderfleet-recruiting-dev/"'
+            buildConfigField "String", "URL_BOOKING", '"https://4i96gtjfia.execute-api.eu-central-1.amazonaws.com/default/"'
+
+            minifyEnabled false
         }
     }
 
@@ -46,27 +56,21 @@ dependencies {
     def nav_version = "2.1.0"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation "android.arch.lifecycle:extensions:1.1.0"
-    implementation "android.arch.lifecycle:viewmodel:1.1.0"
-   // implementation 'javax.annotation:jsr250-api:1.0'
-    //implementation 'javax.inject:javax.inject:1'
-   // compile "com.google.dagger:dagger:2.8"
-    //annotationProcessor "com.google.dagger:dagger-compiler:2.8"
-
-
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.6.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
 
 
     // RxJava / RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.'
 
     // Dagger 2
     //Dagger dependencies
@@ -74,42 +78,15 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
 
     implementation 'com.google.dagger:dagger-android:2.22'
-    implementation 'com.google.dagger:dagger-android-support:2.22' // if you use the support libraries
+    implementation 'com.google.dagger:dagger-android-support:2.22'
+    // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.22'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
-
-
-//    // Android Architecture Components
-//    implementation "android.arch.lifecycle:extensions:$ARCHITECTURE_COMPONENT_VERSION"
-//    implementation "android.arch.lifecycle:common-java8:$ARCHITECTURE_COMPONENT_VERSION"
-//    implementation "android.arch.lifecycle:reactivestreams:$ARCHITECTURE_COMPONENT_VERSION"
     implementation 'com.android.support:multidex:1.0.3'
-    //Lottie Animation view
-    //implementation "com.airbnb.android:lottie:$LOTTIE_ANDROID_VERSION"
-
-    //Calligraphy for custom fonts
-  //  implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
-
-
-    // Room SQLite for data persistence
-    //implementation "android.arch.persistence.room:runtime:$ROOM_VERSION"
-    ///annotationProcessor "android.arch.persistence.room:compiler:$ROOM_VERSION"
-
-    // Chrome custom tab
-    //implementation 'com.android.support:customtabs:28.0.0-alpha3'
-
-    // optional - RxJava support for Room
-    implementation "android.arch.persistence.room:rxjava2:$ROOM_VERSION"
-
     implementation "com.squareup.okhttp3:mockwebserver:3.8.1"
-
-//    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-//    testImplementation 'org.mockito:mockito-core:2.7.6'
-//    implementation 'org.jsoup:jsoup:1.10.2'
-
-    implementation project (":data")
-    implementation project (":domain")
+    implementation 'pl.charmas.android:android-reactive-location2:2.1@aar'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation project(":data")
+    implementation project(":domain")
 }

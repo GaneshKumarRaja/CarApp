@@ -2,13 +2,11 @@ package com.ganesh.domain.usecases;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 
-abstract class UseCase<T> {
 
+abstract class UseCase<T, Params> {
     private final CompositeDisposable compositeDisposable;
     private final Scheduler executorThread;
     private final Scheduler uiThread;
@@ -19,15 +17,13 @@ abstract class UseCase<T> {
         compositeDisposable = new CompositeDisposable();
     }
 
-    public void execute(DisposableObserver<T> disposableObserver,
-                        Observable<T> observable
+    abstract Observable<T> buildUseCaseObservable(Params params);
+
+    public void execute(DisposableObserver<T> disposableObserver
+            , Params params
     ) {
-
-        if (disposableObserver == null) {
-            throw new IllegalArgumentException("disposableObserver must not be null");
-        }
-
-        Observable<T> ons = observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
+        Observable<T> ons = this.buildUseCaseObservable(params).subscribeOn(executorThread)
+                .observeOn(uiThread);
         DisposableObserver observer = ons.subscribeWith(disposableObserver);
         compositeDisposable.add(observer);
     }

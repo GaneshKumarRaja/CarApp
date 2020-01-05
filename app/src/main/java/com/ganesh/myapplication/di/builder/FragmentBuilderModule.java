@@ -1,8 +1,8 @@
 package com.ganesh.myapplication.di.builder;
 
 
-import com.ganesh.myapplication.view.booking.BookingFragment;
-import com.ganesh.myapplication.view.carlist.CarsListMapFragment;
+import com.ganesh.myapplication.presentation.booking.BookingFragment;
+import com.ganesh.myapplication.presentation.carlist.CarsListMapFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

@@ -1,8 +1,6 @@
-package com.ganesh.myapplication.view.booking;
+package com.ganesh.myapplication.presentation.booking;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -19,8 +17,9 @@ import java.util.ArrayList;
 //
 public class CarDetailsAdapter extends RecyclerView.Adapter<CarDetailsAdapter.CarHolder> {
 
-    ArrayList<CarData> carDtatLits;
+    private ArrayList<CarData> carDtatLits;
 
+    @NonNull
     @Override
     public CarHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AdapterCarDetailsBinding adapterCarDetailsBinding =
@@ -42,7 +41,7 @@ public class CarDetailsAdapter extends RecyclerView.Adapter<CarDetailsAdapter.Ca
 
     }
 
-    public void updateData(ArrayList<CarData> carModel) {
+     void updateData(ArrayList<CarData> carModel) {
         this.carDtatLits = carModel;
         notifyDataSetChanged();
     }
@@ -51,7 +50,7 @@ public class CarDetailsAdapter extends RecyclerView.Adapter<CarDetailsAdapter.Ca
 
         private AdapterCarDetailsBinding carDetailsBinding;
 
-        public CarHolder(@NonNull AdapterCarDetailsBinding carDetailsBinding) {
+         CarHolder(@NonNull AdapterCarDetailsBinding carDetailsBinding) {
             super(carDetailsBinding.getRoot());
             this.carDetailsBinding = carDetailsBinding;
         }

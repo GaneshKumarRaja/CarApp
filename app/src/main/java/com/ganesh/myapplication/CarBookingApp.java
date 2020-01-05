@@ -2,10 +2,12 @@ package com.ganesh.myapplication;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
+
 
 
 import com.ganesh.myapplication.di.components.DaggerAppComponent;
+import com.ganesh.myapplication.di.module.AppModule;
+import com.google.android.gms.maps.MapsInitializer;
 
 import javax.inject.Inject;
 
@@ -15,12 +17,6 @@ import dagger.android.HasActivityInjector;
 
 public class CarBookingApp extends Application implements HasActivityInjector {
     private static CarBookingApp sInstance;
-
-
-    public static CarBookingApp getAppContext() {
-        return sInstance;
-    }
-
 
     private static synchronized void setInstance(CarBookingApp app) {
         sInstance = app;
@@ -32,6 +28,7 @@ public class CarBookingApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+        MapsInitializer.initialize(this);
         initializeComponent();
         setInstance(this);
     }
@@ -39,7 +36,10 @@ public class CarBookingApp extends Application implements HasActivityInjector {
     private void initializeComponent() {
         DaggerAppComponent.builder()
                 .application(this)
+
                 .build()
+
+               // .AppModule(new AppModule(this))
                 .inject(this);
     }
 

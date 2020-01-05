@@ -1,32 +1,21 @@
-package com.ganesh.myapplication.view.base;
+package com.ganesh.myapplication.base;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
-import dagger.android.support.AndroidSupportInjection;
+public abstract class MapBaseFragment extends BaseFragment implements OnMapReadyCallback {
 
-
-public abstract class MapBaseFragment
-        extends BaseFragment
-        implements OnMapReadyCallback {
-
-    protected GoogleMap gmap;
+    private GoogleMap gmap;
     private MapView map;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        AndroidSupportInjection.inject(this);
-//        super.onCreate(savedInstanceState);
-//    }
-
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
@@ -36,7 +25,8 @@ public abstract class MapBaseFragment
             outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
         }
 
-        map.onSaveInstanceState(mapViewBundle);
+        if (map != null)
+            map.onSaveInstanceState(mapViewBundle);
     }
 
 
@@ -66,7 +56,8 @@ public abstract class MapBaseFragment
 
     @Override
     public void onDestroy() {
-        map.onDestroy();
+        if (map != null)
+            map.onDestroy();
         super.onDestroy();
     }
 
@@ -95,8 +86,12 @@ public abstract class MapBaseFragment
         map.getMapAsync(this);
     }
 
+    protected GoogleMap getMap() {
+        return gmap;
+    }
 
-    protected abstract void onMapReady();
+
+    public abstract void onMapReady();
 
 
 }
