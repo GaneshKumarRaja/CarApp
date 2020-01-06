@@ -3,9 +3,14 @@ package com.ganesh.myapplication.presentation.carlist;
 
 import android.Manifest;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 
-import android.os.Build;
+import android.location.LocationManager;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +18,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 
 
 import androidx.core.content.ContextCompat;
@@ -24,10 +28,19 @@ import com.ganesh.myapplication.R;
 import com.ganesh.myapplication.base.BaseMapMarkerFragment;
 import com.ganesh.myapplication.databinding.FragmentCarsListMapBinding;
 import com.ganesh.myapplication.model.MarkerModel;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -43,7 +56,9 @@ public class CarsListMapFragment extends BaseMapMarkerFragment {
 
     private FragmentCarsListMapBinding binding;
 
-    private int REQUEST_CODE = 100;
+    private static final int RNTIME_REQUEST_CODE = 100;
+
+    private static final int REQUEST_CHECK_SETTINGS = 101;
 
     public CarsListMapFragment() {
     }
@@ -74,11 +89,6 @@ public class CarsListMapFragment extends BaseMapMarkerFragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     /**
      * when the map is ready to add markers
      */
@@ -98,11 +108,25 @@ public class CarsListMapFragment extends BaseMapMarkerFragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        int permissionLocation = ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
                 Manifest.permission.ACCESS_FINE_LOCATION);
-        if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-            viewModel.enableLocationUpdate();
+
+        if (permissionLocation == PackageManager.PERMISSION_GRANTED) enableGPS();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Check for the integer request code originally supplied to startResolutionForResult().
+        if (requestCode == REQUEST_CHECK_SETTINGS) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    enableGPS();
+                    break;
+                case Activity.RESULT_CANCELED:
+
+                    break;
+            }
         }
     }
 
@@ -114,27 +138,85 @@ public class CarsListMapFragment extends BaseMapMarkerFragment {
         viewModel.getMarkerLiveData().observe(this, this::addMarker);
 
         viewModel.locationMutableLiveData.observe(this, this::updateUserLocation);
+
+        viewModel.getErrorMessage().observe(this, this::showMessage);
     }
 
 
     private void checkPermissions() {
-        int permissionLocation = ContextCompat.checkSelfPermission(getActivity(),
+        int permissionLocation = ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-        List<String> listPermissionsNeeded = new ArrayList<>();
+        ArrayList<String> listPermissionsNeeded = new ArrayList<>();
 
-        if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
-
-            ActivityCompat.requestPermissions(getActivity(),
-                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_CODE);
-
-
+        if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+            enableGPS();
         } else {
-            viewModel.enableLocationUpdate();
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            requestPermissions(
+                    listPermissionsNeeded.toArray(new String[0]), RNTIME_REQUEST_CODE);
+
         }
+
+
+    }
+
+    private void displayLocationSettingsRequest() {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(Objects.requireNonNull(getActivity()))
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(
+                // Show the dialog by calling startResolutionForResult(), and check the result
+                this::onResult);
+    }
+
+
+    private void enableGPS() {
+
+        LocationManager service = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
+
+        assert service != null;
+        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // Check if enabled and if not send user to the GPS settings
+        if (enabled) {
+            viewModel.enableLocationUpdate();
+        } else {
+            displayLocationSettingsRequest();
+        }
+
 
     }
 
 
+    private void onResult(LocationSettingsResult result1) {
+        final Status status = result1.getStatus();
+        switch (status.getStatusCode()) {
+            case LocationSettingsStatusCodes.SUCCESS:
+                enableGPS();
+                break;
+            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                try {
+                    // Show the dialog by calling startResolutionForResult(), and check the result
+                    // in onActivityResult().
+                    status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
+                } catch (IntentSender.SendIntentException e) {
+                    //Log.i(TAG, "PendingIntent unable to execute request.");
+                }
+                break;
+            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                // Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+                break;
+        }
+    }
 }

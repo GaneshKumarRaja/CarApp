@@ -1,9 +1,9 @@
 package com.ganesh.domain.model;
 
 
-import com.ganesh.domain.common.DomainMapper;
 
-public class CarDetailsDomainModel implements DomainMapper {
+
+public class CarDetailsDomainModel {
 
 
     private Integer carId;
@@ -54,18 +54,8 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setCarId(Integer carId) {
-        this.carId = carId;
-    }
-
-
     public String getTitle() {
         return title;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
 
@@ -74,19 +64,8 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setIsClean(Boolean isClean) {
-        this.isClean = isClean;
-    }
 
 
-    public Boolean getIsDamaged() {
-        return isDamaged;
-    }
-
-
-    public void setIsDamaged(Boolean isDamaged) {
-        this.isDamaged = isDamaged;
-    }
 
 
     public String getLicencePlate() {
@@ -94,19 +73,11 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setLicencePlate(String licencePlate) {
-        this.licencePlate = licencePlate;
-    }
-
 
     public Integer getFuelLevel() {
         return fuelLevel;
     }
 
-
-    public void setFuelLevel(Integer fuelLevel) {
-        this.fuelLevel = fuelLevel;
-    }
 
 
     public Integer getVehicleStateId() {
@@ -114,9 +85,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setVehicleStateId(Integer vehicleStateId) {
-        this.vehicleStateId = vehicleStateId;
-    }
+
 
 
     public String getHardwareId() {
@@ -124,9 +93,6 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setHardwareId(String hardwareId) {
-        this.hardwareId = hardwareId;
-    }
 
 
     public Integer getVehicleTypeId() {
@@ -134,9 +100,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setVehicleTypeId(Integer vehicleTypeId) {
-        this.vehicleTypeId = vehicleTypeId;
-    }
+
 
 
     public String getPricingTime() {
@@ -144,9 +108,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setPricingTime(String pricingTime) {
-        this.pricingTime = pricingTime;
-    }
+
 
 
     public String getPricingParking() {
@@ -154,18 +116,14 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setPricingParking(String pricingParking) {
-        this.pricingParking = pricingParking;
-    }
+
 
     public Boolean getIsActivatedByHardware() {
         return isActivatedByHardware;
     }
 
 
-    public void setIsActivatedByHardware(Boolean isActivatedByHardware) {
-        this.isActivatedByHardware = isActivatedByHardware;
-    }
+
 
 
     public Integer getLocationId() {
@@ -173,9 +131,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setLocationId(Integer locationId) {
-        this.locationId = locationId;
-    }
+
 
 
     public String getAddress() {
@@ -183,9 +139,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+
 
 
     public String getZipCode() {
@@ -193,9 +147,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+
 
 
     public String getCity() {
@@ -203,18 +155,13 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public Double getLat() {
         return lat;
     }
 
 
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
+
 
 
     public Double getLon() {
@@ -222,19 +169,13 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setLon(Double lon) {
-        this.lon = lon;
-    }
 
 
-    public Integer getReservationState() {
-        return reservationState;
-    }
 
 
-    public void setReservationState(Integer reservationState) {
-        this.reservationState = reservationState;
-    }
+
+
+
 
 
     public String getDamageDescription() {
@@ -242,9 +183,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setDamageDescription(String damageDescription) {
-        this.damageDescription = damageDescription;
-    }
+
 
 
     public String getVehicleTypeImageUrl() {
@@ -252,9 +191,7 @@ public class CarDetailsDomainModel implements DomainMapper {
     }
 
 
-    public void setVehicleTypeImageUrl(String vehicleTypeImageUrl) {
-        this.vehicleTypeImageUrl = vehicleTypeImageUrl;
-    }
+
 
 
 }

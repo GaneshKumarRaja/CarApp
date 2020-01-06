@@ -14,11 +14,6 @@ import dagger.multibindings.IntoMap;
 
 /**
  * Alloes us to inject dependencies via constructor injection
- * <p>
- * Author: Lajesh D
- * Email: lajeshds2007@gmail.com
- * Created: 7/24/2018
- * Modified: 7/24/2018
  */
 @Module
 public abstract class ViewModelModule {

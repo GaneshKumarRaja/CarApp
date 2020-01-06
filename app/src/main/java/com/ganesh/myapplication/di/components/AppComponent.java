@@ -27,15 +27,8 @@ public interface AppComponent {
     interface Builder {
         @BindsInstance
         Builder application(Application application);
-
-
-
         AppComponent build();
-
-
-
-
     }
 
-    void inject(CarBookingApp nyTimesApp);
+    void inject(CarBookingApp carBookingApp);
 }

@@ -27,6 +27,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
@@ -116,20 +118,20 @@ public class AppModule {
     @Provides
     @Singleton
     CarDetailsUseCase provideCarDetailsUseCase(CarsLocationRepository repository) {
-        return new CarDetailsUseCase(repository);
+        return new CarDetailsUseCase(Schedulers.newThread(), AndroidSchedulers.mainThread(),repository);
     }
 
 
     @Provides
     @Singleton
     CarLocationUseCase provideCarLocationUseCase(CarsLocationRepository repository) {
-        return new CarLocationUseCase(repository);
+        return new CarLocationUseCase(Schedulers.newThread(), AndroidSchedulers.mainThread(),repository);
     }
 
     @Provides
     @Singleton
     CarBookingUseCase provideCarBookingUseCase(CarBookingRepository repository) {
-        return new CarBookingUseCaseImpl(repository);
+        return new CarBookingUseCaseImpl(Schedulers.newThread(), AndroidSchedulers.mainThread(),repository);
     }
 
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 
 
-
 import com.ganesh.myapplication.di.components.DaggerAppComponent;
 import com.ganesh.myapplication.di.module.AppModule;
 import com.google.android.gms.maps.MapsInitializer;
@@ -36,10 +35,7 @@ public class CarBookingApp extends Application implements HasActivityInjector {
     private void initializeComponent() {
         DaggerAppComponent.builder()
                 .application(this)
-
                 .build()
-
-               // .AppModule(new AppModule(this))
                 .inject(this);
     }
 

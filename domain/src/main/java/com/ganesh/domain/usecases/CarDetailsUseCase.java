@@ -5,25 +5,24 @@ package com.ganesh.domain.usecases;
 
 
 import com.ganesh.domain.model.CarDetailsDomainModel;
-import com.ganesh.domain.model.CarsLocationDomainModel;
+
 import com.ganesh.domain.repository.CarsLocationRepository;
 
-import java.util.List;
+
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
-@SuppressWarnings("unchecked")
+import io.reactivex.Scheduler;
+
+
 public class CarDetailsUseCase extends UseCase<CarDetailsDomainModel, Integer> {
     private CarsLocationRepository repository;
 
     @Inject
-    public CarDetailsUseCase(CarsLocationRepository repository) {
-        super(Schedulers.newThread(), AndroidSchedulers.mainThread());
+    public CarDetailsUseCase(Scheduler executorThread, Scheduler uiThread,CarsLocationRepository repository) {
+        super(executorThread, uiThread);
         this.repository = repository;
     }
 

@@ -14,10 +14,6 @@ import javax.inject.Singleton;
 /**
  * ViewModel factory class which keeps all the viewmodel instances
  * <p>
- * Author: Lajesh D
- * Email: lajeshds2007@gmail.com
- * Created: 7/24/2018
- * Modified: 7/24/2018
  */
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {

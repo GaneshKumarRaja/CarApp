@@ -10,8 +10,8 @@ import com.ganesh.domain.repository.CarsLocationRepository;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Scheduler;
+
 
 
 public class CarLocationUseCase extends UseCase<List<CarsLocationDomainModel>, Void> {
@@ -19,8 +19,8 @@ public class CarLocationUseCase extends UseCase<List<CarsLocationDomainModel>, V
     private CarsLocationRepository repository;
 
     @Inject
-    public CarLocationUseCase(CarsLocationRepository repository) {
-        super(Schedulers.newThread(), AndroidSchedulers.mainThread());
+    public CarLocationUseCase(Scheduler executorThread, Scheduler uiThread,CarsLocationRepository repository) {
+        super(executorThread, uiThread);
         this.repository = repository;
     }
 

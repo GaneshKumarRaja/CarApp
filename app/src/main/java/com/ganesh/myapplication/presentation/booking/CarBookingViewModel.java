@@ -22,7 +22,7 @@ public class CarBookingViewModel extends BaseViewModel {
     private CarDetailsDataMapper mapper;
     private Integer carID;
     private final MutableLiveData<CarDetailsData> carDetailsDataMutableLiveData;
-
+     MutableLiveData<String> bookedStatus = new MutableLiveData<>();
 
     @Inject
     public CarBookingViewModel(
@@ -70,14 +70,14 @@ public class CarBookingViewModel extends BaseViewModel {
         carBookingUseCase.bookCar(new DisposableObserver<CarBookingDomainModel>() {
             @Override
             public void onNext(CarBookingDomainModel carsLocationDomainModel) {
-                errorMessage.postValue(carsLocationDomainModel.getMessage() == null ?
+                bookedStatus.postValue(carsLocationDomainModel.getMessage() == null ?
                         "Booked Successfully" :
                         carsLocationDomainModel.getMessage());
             }
 
             @Override
             public void onError(Throwable e) {
-                handleError(e);
+                bookedStatus.postValue(e.getMessage());
             }
 
             @Override

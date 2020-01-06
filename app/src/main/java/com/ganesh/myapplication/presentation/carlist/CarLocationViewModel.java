@@ -11,9 +11,12 @@ import com.ganesh.myapplication.mapper.DomainToAppDataMapper;
 import com.ganesh.myapplication.model.MarkerModel;
 import com.ganesh.myapplication.base.BaseViewModel;
 import com.google.android.gms.location.LocationRequest;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
@@ -66,7 +69,7 @@ public class CarLocationViewModel extends BaseViewModel {
 
             @Override
             public void onComplete() {
-
+                canShowLoading.postValue(false);
             }
         });
 
@@ -75,6 +78,7 @@ public class CarLocationViewModel extends BaseViewModel {
 
     /**
      * handling result of cars details
+     *
      * @param domainModelList cars location
      */
     private void handleResult(List<CarsLocationDomainModel> domainModelList) {
@@ -94,6 +98,7 @@ public class CarLocationViewModel extends BaseViewModel {
 
     /**
      * hanndling error on fetching data from domain layer
+     *
      * @param e error message
      */
     private void handleError(Throwable e) {

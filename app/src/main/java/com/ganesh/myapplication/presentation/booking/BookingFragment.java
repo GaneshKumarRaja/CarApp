@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -75,6 +76,7 @@ public class BookingFragment extends BaseFragment implements AdapterCallback {
 
         viewModel.getCanShowLoading().observe(this, aBoolean -> binding.setVisibilites(aBoolean));
 
+        viewModel.bookedStatus.observe(this, this::showMessage);
     }
 
     @Override

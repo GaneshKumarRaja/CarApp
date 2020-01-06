@@ -7,5 +7,5 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 
 public interface CarBookingRepository {
-    public Observable<CarBookingDomainModel> doCarBooking(HashMap<String, Integer> params);
+     Observable<CarBookingDomainModel> doCarBooking(HashMap<String, Integer> params);
 }

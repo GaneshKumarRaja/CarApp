@@ -1,16 +1,18 @@
 package com.ganesh.domain.usecases;
 
 import com.ganesh.domain.model.CarBookingDomainModel;
-import com.ganesh.domain.model.CarsLocationDomainModel;
+
 import com.ganesh.domain.repository.CarBookingRepository;
+
 import java.util.HashMap;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Scheduler;
+
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+
 
 public class CarBookingUseCaseImpl extends UseCase<CarBookingDomainModel, HashMap<String, Integer>>
         implements CarBookingUseCase {
@@ -18,8 +20,8 @@ public class CarBookingUseCaseImpl extends UseCase<CarBookingDomainModel, HashMa
     private CarBookingRepository repository;
 
     @Inject
-    public CarBookingUseCaseImpl(CarBookingRepository repository) {
-        super(Schedulers.newThread(), AndroidSchedulers.mainThread());
+    public CarBookingUseCaseImpl(Scheduler executorThread, Scheduler uiThread, CarBookingRepository repository) {
+        super(executorThread, uiThread);
         this.repository = repository;
     }
 
@@ -30,6 +32,6 @@ public class CarBookingUseCaseImpl extends UseCase<CarBookingDomainModel, HashMa
 
     @Override
     public void bookCar(DisposableObserver<CarBookingDomainModel> disposableObserver, HashMap<String, Integer> carInfo) {
-        execute(disposableObserver,carInfo);
+        execute(disposableObserver, carInfo);
     }
 }

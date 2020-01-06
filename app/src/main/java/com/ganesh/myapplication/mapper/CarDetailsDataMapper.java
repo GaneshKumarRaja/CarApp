@@ -2,15 +2,12 @@ package com.ganesh.myapplication.mapper;
 
 import com.ganesh.domain.common.Mapper;
 import com.ganesh.domain.model.CarDetailsDomainModel;
-import com.ganesh.domain.model.CarsLocationDomainModel;
 import com.ganesh.myapplication.model.CarData;
 import com.ganesh.myapplication.model.CarDetailsData;
-import com.ganesh.myapplication.model.MarkerModel;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 public class CarDetailsDataMapper extends Mapper<CarDetailsDomainModel, CarDetailsData> {
 
@@ -18,7 +15,7 @@ public class CarDetailsDataMapper extends Mapper<CarDetailsDomainModel, CarDetai
     @Override
     public CarDetailsData mapFrom(CarDetailsDomainModel from) {
         CarDetailsData carData = new CarDetailsData();
-        carData.carDtatLits = new ArrayList();
+        carData.carDtatLits = new ArrayList<>();
         carData.carDtatLits.add(new CarData("Address", from.getAddress()));
         carData.carDtatLits.add(new CarData("City", from.getCity()));
         carData.carDtatLits.add(new CarData("Damage Info", from.getDamageDescription()));
